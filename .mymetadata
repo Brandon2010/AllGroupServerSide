@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="AllGroupServerSide"
+  id="myeclipse.1427916515860"
+  context-root="/AllGroupServerSide"
+  j2ee-spec="6.0"
+  archive="AllGroupServerSide.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
