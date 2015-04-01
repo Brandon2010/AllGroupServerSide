@@ -1,4 +1,4 @@
-package Bean;
+package com.AllGroup.Bean;
 
 import java.math.BigInteger;
 

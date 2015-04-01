@@ -1,4 +1,4 @@
-package Bean;
+package com.AllGroup.Bean;
 
 public class Participant {
 	private long userId;

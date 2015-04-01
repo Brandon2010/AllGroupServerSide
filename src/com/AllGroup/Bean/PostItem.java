@@ -1,28 +1,28 @@
-package Bean;
+package com.AllGroup.Bean;
 
-public class ChatItem {
-	private long chatId;
+public class PostItem {
+	private long postId;
 	private long userId;
 	private long eventId;
 	private String content;
 	private String time;
 	
-	public ChatItem(long chatId, long userId, long eventId, String content,
+	public PostItem(long postId, long userId, long eventId, String content,
 			String time) {
 		super();
-		this.chatId = chatId;
+		this.postId = postId;
 		this.userId = userId;
 		this.eventId = eventId;
 		this.content = content;
 		this.time = time;
 	}
 
-	public long getChatId() {
-		return chatId;
+	public long getPostId() {
+		return postId;
 	}
 
-	public void setChatId(long chatId) {
-		this.chatId = chatId;
+	public void setPostId(long postId) {
+		this.postId = postId;
 	}
 
 	public long getUserId() {
