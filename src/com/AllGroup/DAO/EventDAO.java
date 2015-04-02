@@ -96,6 +96,7 @@ public class EventDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = null;
+		Event event = null;
 		try {
 			dbCon = DataAccess.getConnection();
 			sql = "SELECT * FROM event e where e.event_id = ?";
@@ -103,14 +104,13 @@ public class EventDAO {
 			ps.setLong(1, eventId);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				Event event = new Event();
+				event = new Event();
 				event.setEventId(rs.getLong("event_id"));
 				event.setCateId(rs.getLong("cate_id"));
 				event.setName(rs.getString("name"));
 				event.setTime(rs.getString("time"));
 				event.setLocation(rs.getString("location"));
 				event.setDescription(rs.getString("description"));
-				return event;
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -122,7 +122,7 @@ public class EventDAO {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return event;
 	}
 	
 	public List<Event> getEventsByCate(long cateId) {
@@ -168,7 +168,7 @@ public class EventDAO {
 		try {
 			dbCon = DataAccess.getConnection();
 			dbCon.setAutoCommit(false);
-			sql = "delete from event where eventId = ?";
+			sql = "delete from event where event_id = ?";
 			ps = dbCon.prepareStatement(sql);
 			ps.setLong(1, eventId);
 			updateRows = ps.executeUpdate();
