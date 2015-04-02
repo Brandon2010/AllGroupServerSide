@@ -7,6 +7,10 @@ public class User {
 	private BigInteger facebookId;
 	private String name;
 	
+	public User() {
+		super();
+	}
+	
 	public User(long userId, BigInteger facebookId, String name) {
 		super();
 		this.userId = userId;

@@ -7,6 +7,10 @@ public class ChatItem {
 	private String content;
 	private String time;
 	
+	public ChatItem() {
+		super();
+	}
+	
 	public ChatItem(long chatId, long userId, long eventId, String content,
 			String time) {
 		super();

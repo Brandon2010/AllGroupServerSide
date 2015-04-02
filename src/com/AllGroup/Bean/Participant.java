@@ -5,6 +5,10 @@ public class Participant {
 	private long eventId;
 	private long partId;
 	
+	public Participant() {
+		super();
+	}
+	
 	public Participant(long userId, long eventId, long partId) {
 		super();
 		this.userId = userId;

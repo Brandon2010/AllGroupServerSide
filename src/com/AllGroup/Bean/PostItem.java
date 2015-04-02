@@ -7,6 +7,10 @@ public class PostItem {
 	private String content;
 	private String time;
 	
+	public PostItem() {
+		super();
+	}
+	
 	public PostItem(long postId, long userId, long eventId, String content,
 			String time) {
 		super();
