@@ -1,3 +1,4 @@
+DROP database allgroup;
 CREATE DATABASE IF NOT EXISTS allgroup;
 
 use allgroup;
@@ -15,6 +16,7 @@ create table category (
     `name` varchar(255) not null,
     primary key (`cate_id`),
     foreign key (`user_id`) references user (`user_id`)
+    on delete cascade
 );
 
 create table event (
@@ -26,6 +28,7 @@ create table event (
 	`location` varchar(1000),
     primary key (`event_id`),
     foreign key (`cate_id`) references category (`cate_id`)
+    on delete cascade
 );
 
 create table participant (
@@ -33,8 +36,10 @@ create table participant (
     `user_id` int not null,
     `event_id` int not null,
     primary key (`part_id`),
-    foreign key (`user_id`) references user(`user_id`),
+    foreign key (`user_id`) references user(`user_id`)
+    on delete cascade,
     foreign key (`event_id`) references event (`event_id`)
+    on delete cascade
 );
 
 create table post_item (
@@ -44,8 +49,10 @@ create table post_item (
     `time` datetime not null,
     `content` varchar(1000) not null,
     primary key (`post_id`),
-    foreign key (`user_id`) references user (`user_id`),
+    foreign key (`user_id`) references user (`user_id`)
+    on delete cascade,
     foreign key (`event_id`) references event (`event_id`)
+    on delete cascade
 );
 
 create table chat_item (
@@ -55,8 +62,10 @@ create table chat_item (
     `time` datetime not null,
     `content` varchar(5000) not null,
     primary key(`chat_id`),
-    foreign key (`user_id`) references user (`user_id`),
+    foreign key (`user_id`) references user (`user_id`)
+    on delete cascade,
     foreign key (`event_id`) references event (`event_id`)
+    on delete cascade
 );
     
     
