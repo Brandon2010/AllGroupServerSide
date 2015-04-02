@@ -6,7 +6,7 @@ use allgroup;
 create table user (
 	`user_id` int auto_increment,
     `facebook_id` bigint not null,
-    `name` varchar(255) not null,
+    `name` varchar(255) not null unique,
     primary key (`user_id`)
 );
 
@@ -31,12 +31,12 @@ create table event (
     on delete cascade
 );
 
-create table participant (
+create table category_event (
 	`part_id` int not null auto_increment,
-    `user_id` int not null,
+    `cate_id` int not null,
     `event_id` int not null,
     primary key (`part_id`),
-    foreign key (`user_id`) references user(`user_id`)
+    foreign key (`cate_id`) references category(`cate_id`)
     on delete cascade,
     foreign key (`event_id`) references event (`event_id`)
     on delete cascade
@@ -67,6 +67,9 @@ create table chat_item (
     foreign key (`event_id`) references event (`event_id`)
     on delete cascade
 );
-    
-    
+
+CREATE VIEW event_user AS select u.user_id, u.name as user_name, u.facebook_id, ca.cate_id, ca.name as category_name, 
+e.event_id, e.name as event_name, e.description, e.time, e.location  FROM
+event e, category ca, user u, category_event ce WHERE e.event_id = ce.event_id and ca.cate_id = ce.cate_id 
+and u.user_id = ca.user_id;
     
