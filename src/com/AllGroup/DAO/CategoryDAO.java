@@ -13,7 +13,6 @@ import com.AllGroup.Util.DataAccess;
 
 public class CategoryDAO {
 	
-	// TODO: added the argument uId
 	public void createCategory(long uId, String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -21,6 +20,7 @@ public class CategoryDAO {
 		
 		try {
 			conn = DataAccess.getConnection();
+			conn.setAutoCommit(false);
 			sql = "INSERT INTO category VALUES (DEFAULT, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
@@ -29,11 +29,15 @@ public class CategoryDAO {
 			
 			pstmt.setString(2, name);
 			
-			pstmt.executeQuery();
+			pstmt.execute();
+			conn.commit();
 
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} catch(Exception e) {
+		} catch (Exception e) {
+			try {
+				conn.rollback(); // Roll back operation
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -44,7 +48,6 @@ public class CategoryDAO {
 		}
 	}
 	
-	// TODO: added argument uId
 	public Category getCategory(long uId, String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -53,6 +56,7 @@ public class CategoryDAO {
 		
 		try {
 			conn = DataAccess.getConnection();
+			conn.setAutoCommit(false);
 			sql = "SELECT * FROM category WHERE user_id=? AND name=?";
 			pstmt = conn.prepareStatement(sql);
 			
@@ -68,6 +72,7 @@ public class CategoryDAO {
 						rs.getLong("user_id"));
 				return category;
 			}
+			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} catch(Exception e) {
@@ -119,6 +124,37 @@ public class CategoryDAO {
 		}
 		
 		return cates;	
+	}
+		
+	public int deleteCategory(long cateId) {
+		Connection dbCon = null;
+		PreparedStatement ps = null;
+		int updateRows = 0;
+		String sql = null;
+		try {
+			dbCon = DataAccess.getConnection();
+			dbCon.setAutoCommit(false);
+			sql = "delete from category where cateId = ?";
+			ps = dbCon.prepareStatement(sql);
+			ps.setLong(1, cateId);
+			updateRows = ps.executeUpdate();
+			dbCon.commit();
+		} catch (Exception e) {
+			try {
+				dbCon.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				DataAccess.close(ps, dbCon);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return updateRows;
 	}
 	
 }
