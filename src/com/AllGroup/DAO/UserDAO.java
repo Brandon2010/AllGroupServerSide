@@ -18,17 +18,22 @@ public class UserDAO {
 		
 		try {
 			conn = DataAccess.getConnection();
+			conn.setAutoCommit(false);
 			sql = "INSERT INTO user VALUES (DEFAULT, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, facebookId.longValue());	
 			pstmt.setString(2, name);
 			
-			pstmt.executeQuery();
-
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} catch(Exception e) {
+			pstmt.execute();
+			conn.commit();
+			
+		} catch (Exception e) {
+			try {
+				conn.rollback(); // Roll back operation
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
