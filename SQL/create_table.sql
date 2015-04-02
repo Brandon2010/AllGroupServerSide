@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS allgroup;
 CREATE DATABASE IF NOT EXISTS allgroup;
 
 use allgroup;
