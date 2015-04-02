@@ -5,6 +5,10 @@ public class Category {
 	private String name;
 	private long userId;
 	
+	public Category() {
+		super();
+	}
+	
 	public Category(long cateId, String name, long userId) {
 		super();
 		this.cateId = cateId;

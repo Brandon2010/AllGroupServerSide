@@ -8,6 +8,10 @@ public class Event {
 	private String description;
 	private String location;
 	
+	public Event() {
+		super();
+	}
+	
 	public Event(long eventId, long cateId, String name, String time,
 			String description, String location) {
 		super();
