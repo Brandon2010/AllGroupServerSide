@@ -1,6 +1,7 @@
 package com.AllGroup.Test;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import com.AllGroup.Bean.*;
 import com.AllGroup.DAO.*;
@@ -24,7 +25,7 @@ public class TestCategoryDAO {
 		test.createCategory(3, "game");
 		
 		Category cate = test.getCategory(3, "game");	
-		assertEquals("Wrong Category!", 7, cate.getCateId());
+		assertEquals("Wrong Category!", 6, cate.getCateId());
 	}
 	
 	@Test
@@ -33,6 +34,25 @@ public class TestCategoryDAO {
 		Category cate = test.getCategory(1, "ceremony");
 		
 		assertEquals("Wrong Category!", 3, cate.getCateId());
+	}
+	
+	@Test
+	public void testGetByUserId() {
+		CategoryDAO test = new CategoryDAO();
+		ArrayList<Category> list = (ArrayList<Category>) test.getCategory(1);
+		
+		assertEquals("Wrong Caegories!", 3, list.size());
+	}
+	
+	@Test
+	public void testDelete() {
+		CategoryDAO test = new CategoryDAO();
+		test.deleteCategory(4);
+		
+		Category cate = test.getCategory(3, "ceremony");
+		
+		assertNull("Wrong Category!", cate);
+		
 	}
 	
 	

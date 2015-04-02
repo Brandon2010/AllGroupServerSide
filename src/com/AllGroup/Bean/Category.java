@@ -40,5 +40,9 @@ public class Category {
 		this.userId = userId;
 	}
 	
+	@Override
+	public String toString() {
+		return cateId + ", " + userId + ", " + name;
+	}
 	
 }

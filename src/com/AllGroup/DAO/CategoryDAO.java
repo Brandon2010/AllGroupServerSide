@@ -134,7 +134,7 @@ public class CategoryDAO {
 		try {
 			dbCon = DataAccess.getConnection();
 			dbCon.setAutoCommit(false);
-			sql = "delete from category where cateId = ?";
+			sql = "delete from category where cate_id = ?";
 			ps = dbCon.prepareStatement(sql);
 			ps.setLong(1, cateId);
 			updateRows = ps.executeUpdate();
