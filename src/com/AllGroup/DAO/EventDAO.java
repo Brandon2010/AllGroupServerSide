@@ -13,7 +13,6 @@ import java.util.List;
 
 import com.AllGroup.Util.DataAccess;
 import com.AllGroup.Bean.Event;
-import com.AllGroup.Bean.Participant;
 
 /**
  * @author wangxi
@@ -191,37 +190,37 @@ public class EventDAO {
 		return updateRows;
 	}
 	
-	public List<Participant> getParticipantsByEvent(long eventId) {
-		Connection dbCon = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = null;
-		List<Participant> results = new ArrayList<Participant>();
-		try {
-			dbCon = DataAccess.getConnection();
-			sql = "SELECT * FROM particpant p where p.event_id = ?";
-			ps = dbCon.prepareStatement(sql);
-			ps.setLong(1, eventId);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				Participant p = new Participant();
-				p.setEventId(eventId);
-				p.setPartId(rs.getLong("part_id"));
-				p.setUserId(rs.getLong("user_id"));
-				results.add(p);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally{
-			try {
-				DataAccess.close(rs, ps, dbCon);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return results;
-	}
+//	public List<Participant> getParticipantsByEvent(long eventId) {
+//		Connection dbCon = null;
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		String sql = null;
+//		List<Participant> results = new ArrayList<Participant>();
+//		try {
+//			dbCon = DataAccess.getConnection();
+//			sql = "SELECT * FROM particpant p where p.event_id = ?";
+//			ps = dbCon.prepareStatement(sql);
+//			ps.setLong(1, eventId);
+//			rs = ps.executeQuery();
+//			while (rs.next()) {
+//				Participant p = new Participant();
+//				p.setEventId(eventId);
+//				p.setPartId(rs.getLong("part_id"));
+//				p.setUserId(rs.getLong("user_id"));
+//				results.add(p);
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally{
+//			try {
+//				DataAccess.close(rs, ps, dbCon);
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return results;
+//	}
 	
 	public int addParticipant(long user_id, long event_id) {
 		Connection dbCon = null;
