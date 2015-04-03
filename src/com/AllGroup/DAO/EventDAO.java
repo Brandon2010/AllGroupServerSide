@@ -31,7 +31,7 @@ public class EventDAO {
 		try {
 			dbCon = DataAccess.getConnection();
 			dbCon.setAutoCommit(false);
-			sql = "insert into event (name, description, time, location) values (?, ?, ?, ?, ?)";
+			sql = "insert into event (name, description, time, location) values (?, ?, ?, ?)";
 			ps = dbCon.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.setString(2, description);
@@ -203,7 +203,7 @@ public class EventDAO {
 			while (rs.next()) {
 				User u = new User();
 				u.setFacebookId(BigInteger.valueOf(rs.getLong("facebook_id")));
-				u.setName(rs.getString("name"));
+				u.setName(rs.getString("user_name"));
 				u.setUserId(rs.getLong("user_id"));
 				results.add(u);
 			}
@@ -231,6 +231,38 @@ public class EventDAO {
 			sql = "insert into category_event (cate_id, event_id) values (?, ?)";
 			ps = dbCon.prepareStatement(sql);
 			ps.setLong(1, cate_id);
+			ps.setLong(2, event_id);
+			updateRows = ps.executeUpdate();
+			dbCon.commit();
+		} catch (Exception e) {
+			try {
+				dbCon.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				DataAccess.close(ps, dbCon);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return updateRows;
+	}
+	
+	public int updateCategory(long new_cate_id, long event_id) {
+		Connection dbCon = null;
+		PreparedStatement ps = null;
+		int updateRows = 0;
+		String sql = null;
+		try {
+			dbCon = DataAccess.getConnection();
+			dbCon.setAutoCommit(false);
+			sql = "update category_event set cate_id = ? where event_id = ?";
+			ps = dbCon.prepareStatement(sql);
+			ps.setLong(1, new_cate_id);
 			ps.setLong(2, event_id);
 			updateRows = ps.executeUpdate();
 			dbCon.commit();
