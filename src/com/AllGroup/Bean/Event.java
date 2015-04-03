@@ -2,7 +2,6 @@ package com.AllGroup.Bean;
 
 public class Event {
 	private long eventId;
-	private long cateId;
 	private String name;
 	private String time;
 	private String description;
@@ -16,7 +15,6 @@ public class Event {
 			String description, String location) {
 		super();
 		this.eventId = eventId;
-		this.cateId = cateId;
 		this.name = name;
 		this.time = time;
 		this.description = description;
@@ -29,14 +27,6 @@ public class Event {
 
 	public void setEventId(long eventId) {
 		this.eventId = eventId;
-	}
-
-	public long getCateId() {
-		return cateId;
-	}
-
-	public void setCateId(long cateId) {
-		this.cateId = cateId;
 	}
 
 	public String getName() {

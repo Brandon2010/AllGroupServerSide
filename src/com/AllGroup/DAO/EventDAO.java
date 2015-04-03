@@ -22,7 +22,7 @@ import com.AllGroup.Bean.User;
  */
 public class EventDAO {
 
-	public int createEvent(long cateId, String name, String time,
+	public int createEvent(String name, String time,
 			String description, String location) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -31,13 +31,12 @@ public class EventDAO {
 		try {
 			dbCon = DataAccess.getConnection();
 			dbCon.setAutoCommit(false);
-			sql = "insert into event (cate_id, name, description, time, location) values (?, ?, ?, ?, ?)";
+			sql = "insert into event (name, description, time, location) values (?, ?, ?, ?, ?)";
 			ps = dbCon.prepareStatement(sql);
-			ps.setLong(1, cateId);
-			ps.setString(2, name);
-			ps.setString(3, description);
-			ps.setString(4, time);
-			ps.setString(5, location);
+			ps.setString(1, name);
+			ps.setString(2, description);
+			ps.setString(3, time);
+			ps.setString(4, location);
 			updateRows = ps.executeUpdate();
 			dbCon.commit();
 		} catch (Exception e) {
@@ -72,7 +71,6 @@ public class EventDAO {
 			while (rs.next()) {
 				Event event = new Event();
 				event.setEventId(rs.getLong("event_id"));
-				event.setCateId(rs.getLong("cate_id"));
 				event.setName(rs.getString("name"));
 				event.setTime(rs.getString("time"));
 				event.setLocation(rs.getString("location"));
@@ -107,7 +105,6 @@ public class EventDAO {
 			if (rs.next()) {
 				event = new Event();
 				event.setEventId(rs.getLong("event_id"));
-				event.setCateId(rs.getLong("cate_id"));
 				event.setName(rs.getString("name"));
 				event.setTime(rs.getString("time"));
 				event.setLocation(rs.getString("location"));
@@ -134,15 +131,14 @@ public class EventDAO {
 		List<Event> results = new ArrayList<Event>();
 		try {
 			dbCon = DataAccess.getConnection();
-			sql = "SELECT * FROM event e where e.cate_id = ?";
+			sql = "SELECT * FROM event_user e where e.cate_id = ?";
 			ps = dbCon.prepareStatement(sql);
 			ps.setLong(1, cateId);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				Event event = new Event();
 				event.setEventId(rs.getLong("event_id"));
-				event.setCateId(rs.getLong("cate_id"));
-				event.setName(rs.getString("name"));
+				event.setName(rs.getString("event_name"));
 				event.setTime(rs.getString("time"));
 				event.setLocation(rs.getString("location"));
 				event.setDescription(rs.getString("description"));

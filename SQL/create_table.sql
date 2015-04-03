@@ -21,14 +21,11 @@ create table category (
 
 create table event (
 	`event_id` int not null auto_increment,
-    `cate_id` int not null,
     `name` varchar(255) not null,
     `description` varchar(1000),
     `time` datetime not null,
 	`location` varchar(1000),
-    primary key (`event_id`),
-    foreign key (`cate_id`) references category (`cate_id`)
-    on delete cascade
+    primary key (`event_id`)
 );
 
 create table category_event (
