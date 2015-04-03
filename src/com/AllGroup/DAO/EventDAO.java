@@ -4,6 +4,7 @@
 package com.AllGroup.DAO;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import com.AllGroup.Util.DataAccess;
 import com.AllGroup.Bean.Event;
+import com.AllGroup.Bean.User;
 
 /**
  * @author wangxi
@@ -190,39 +192,39 @@ public class EventDAO {
 		return updateRows;
 	}
 	
-//	public List<Participant> getParticipantsByEvent(long eventId) {
-//		Connection dbCon = null;
-//		PreparedStatement ps = null;
-//		ResultSet rs = null;
-//		String sql = null;
-//		List<Participant> results = new ArrayList<Participant>();
-//		try {
-//			dbCon = DataAccess.getConnection();
-//			sql = "SELECT * FROM particpant p where p.event_id = ?";
-//			ps = dbCon.prepareStatement(sql);
-//			ps.setLong(1, eventId);
-//			rs = ps.executeQuery();
-//			while (rs.next()) {
-//				Participant p = new Participant();
-//				p.setEventId(eventId);
-//				p.setPartId(rs.getLong("part_id"));
-//				p.setUserId(rs.getLong("user_id"));
-//				results.add(p);
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally{
-//			try {
-//				DataAccess.close(rs, ps, dbCon);
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return results;
-//	}
+	public List<User> getParticipantsByEvent(long eventId) {
+		Connection dbCon = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = null;
+		List<User> results = new ArrayList<User>();
+		try {
+			dbCon = DataAccess.getConnection();
+			sql = "SELECT * FROM event_user eu where eu.event_id = ?";
+			ps = dbCon.prepareStatement(sql);
+			ps.setLong(1, eventId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				User u = new User();
+				u.setFacebookId(BigInteger.valueOf(rs.getLong("facebook_id")));
+				u.setName(rs.getString("name"));
+				u.setUserId(rs.getLong("user_id"));
+				results.add(u);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			try {
+				DataAccess.close(rs, ps, dbCon);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return results;
+	}
 	
-	public int addParticipant(long user_id, long event_id) {
+	public int addParticipant(long cate_id, long event_id) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
 		int updateRows = 0;
@@ -230,9 +232,9 @@ public class EventDAO {
 		try {
 			dbCon = DataAccess.getConnection();
 			dbCon.setAutoCommit(false);
-			sql = "insert into participant (user_id, event_id) values (?, ?)";
+			sql = "insert into category_event (cate_id, event_id) values (?, ?)";
 			ps = dbCon.prepareStatement(sql);
-			ps.setLong(1, user_id);
+			ps.setLong(1, cate_id);
 			ps.setLong(2, event_id);
 			updateRows = ps.executeUpdate();
 			dbCon.commit();
