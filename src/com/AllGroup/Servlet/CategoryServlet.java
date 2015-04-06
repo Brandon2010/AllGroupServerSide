@@ -3,6 +3,7 @@ package com.AllGroup.Servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -102,8 +103,8 @@ public class CategoryServlet extends HttpServlet {
 		
 		cateDao.createCategory(userId, name);		
 		
-		Category cate = cateDao.getCategory(userId, name);
-		String jsonCate = JsonTools.createJsonString("category", cate);
+		List<Category> cates = cateDao.getCategory(userId);
+		String jsonCate = JsonTools.createJsonString("categories", cates);
 		response.setStatus(200);
 		out.println(jsonCate);
 		
@@ -142,10 +143,21 @@ public class CategoryServlet extends HttpServlet {
 	
 	private void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws IOException {
-		//PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
 		long cateId = Long.parseLong(request.getParameter("cateId"));
 		
+		Category cate = cateDao.getCategoryById(cateId);
+		long userId = cate.getUserId();
+		
 		cateDao.deleteCategory(cateId);
+		
+		List<Category> cates = cateDao.getCategory(userId);
+		String jsonCate = JsonTools.createJsonString("categories", cates);
+		response.setStatus(200);
+		out.println(jsonCate);
+		
+		out.flush();
+		out.close();
 		
 	}
 }

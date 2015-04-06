@@ -125,7 +125,45 @@ public class CategoryDAO {
 		
 		return cates;	
 	}
+	
+	public Category getCategoryById(long cateId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
 		
+		try {
+			conn = DataAccess.getConnection();
+			conn.setAutoCommit(false);
+			sql = "SELECT * FROM category WHERE cate_id=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, (int)cateId);
+			
+			rs = pstmt.executeQuery();
+			
+			// TODO: does rs fetched by "name" only contain one item?
+			if (rs.next()) {
+				Category category = new Category(rs.getLong("cate_id"), 						
+						rs.getString("name"),
+						rs.getLong("user_id"));
+				return category;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DataAccess.close(rs, pstmt, conn);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;		
+	}
+	
 	public int deleteCategory(long cateId) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
