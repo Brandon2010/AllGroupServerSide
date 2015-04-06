@@ -6,16 +6,12 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-<<<<<<< HEAD
+	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/ezmorph-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/json-lib-2.2.2-jdk15.jar"/>
+	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Database tools/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar"/>
-=======
-	<classpathentry kind="lib" path="/Users/niro/Applications/mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar"/>
-	<classpathentry kind="lib" path="/Users/niro/Applications/json/ezmorph-1.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/niro/Applications/json/json-lib-2.2.2-jdk15.jar"/>
-	<classpathentry kind="lib" path="/Users/niro/Applications/json/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="lib" path="/Users/niro/Applications/json/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="/Users/niro/Applications/json/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="/Users/niro/Applications/json/commons-logging-1.1.jar"/>
->>>>>>> c2c05993254845367cdfcdd05f5cd5460eb9e51f
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

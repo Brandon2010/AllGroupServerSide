@@ -4,19 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.AllGroup.Bean.Category;
 import com.AllGroup.Util.DataAccess;
 
 public class CategoryDAO {
 	
-	public void createCategory(long uId, String name) {
+	public int createCategory(long uId, String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		int updateRows = 0;
 		
 		try {
 			conn = DataAccess.getConnection();
@@ -29,7 +29,7 @@ public class CategoryDAO {
 			
 			pstmt.setString(2, name);
 			
-			pstmt.execute();
+			updateRows = pstmt.executeUpdate();
 			conn.commit();
 
 		} catch (Exception e) {
@@ -46,6 +46,8 @@ public class CategoryDAO {
 				e.printStackTrace();
 			}
 		}
+		
+		return updateRows;
 	}
 	
 	public Category getCategory(long uId, String name) {
@@ -125,6 +127,7 @@ public class CategoryDAO {
 		
 		return cates;	
 	}
+	
 	
 	public Category getCategoryById(long cateId) {
 		Connection conn = null;

@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.AllGroup.DAO.*;
-import com.AllGroup.Bean.*;
-import com.AllGroup.Util.*;
+import com.AllGroup.Bean.Category;
+import com.AllGroup.DAO.CategoryDAO;
+import com.AllGroup.Util.JsonTools;
 
 
 public class CategoryServlet extends HttpServlet {
@@ -32,6 +32,7 @@ public class CategoryServlet extends HttpServlet {
 	/**
 	 * Destruction of the servlet. <br>
 	 */
+	@Override
 	public void destroy() {
 		super.destroy(); // Just puts "destroy" string in log
 		// Put your code here
@@ -47,6 +48,7 @@ public class CategoryServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -77,6 +79,7 @@ public class CategoryServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doGet(request, response);
@@ -87,6 +90,7 @@ public class CategoryServlet extends HttpServlet {
 	 *
 	 * @throws ServletException if an error occurs
 	 */
+	@Override
 	public void init() throws ServletException {
 		// Put your code here
 		sc = this.getServletContext();
@@ -101,13 +105,18 @@ public class CategoryServlet extends HttpServlet {
 		long userId = Long.parseLong(request.getParameter("userId"));
 		String name = request.getParameter("name");
 		
-		cateDao.createCategory(userId, name);		
+		int update = cateDao.createCategory(userId, name);		
 		
-		List<Category> cates = cateDao.getCategory(userId);
-		String jsonCate = JsonTools.createJsonString("categories", cates);
-		response.setStatus(200);
-		out.println(jsonCate);
-		
+		if (update == 0) {
+			response.setStatus(500);
+		}
+		else {
+			List<Category> cates = cateDao.getCategory(userId);			
+			String jsonCate = JsonTools.createJsonString("categories", cates);
+			response.setStatus(200);
+			out.println(jsonCate);	
+		}
+				
 		out.flush();
 		out.close();
 	}
@@ -118,10 +127,15 @@ public class CategoryServlet extends HttpServlet {
 		long userId = Long.parseLong(request.getParameter("userId"));
 		ArrayList<Category> cates = (ArrayList<Category>) cateDao.getCategory(userId);
 		
-		String jsonCate = JsonTools.createJsonString("categories", cates);
-		response.setStatus(200);
-		out.println(jsonCate);
-		
+		if (cates.size() == 0) {
+			response.setStatus(404);
+		}
+		else {
+			String jsonCate = JsonTools.createJsonString("categories", cates);
+			response.setStatus(200);
+			out.println(jsonCate);
+		}
+			
 		out.flush();
 		out.close();
 	}
@@ -133,21 +147,25 @@ public class CategoryServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		Category cate = cateDao.getCategory(userId, name);
 		
-		String jsonCate = JsonTools.createJsonString("category", cate);
-		response.setStatus(200);
-		out.println(jsonCate);
-		
+		if (cate == null) {
+			response.setStatus(404);
+		}
+		else {
+			String jsonCate = JsonTools.createJsonString("category", cate);
+			response.setStatus(200);
+			out.println(jsonCate);
+		}
+				
 		out.flush();
 		out.close();
 	}
+	
 	
 	private void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
 		long cateId = Long.parseLong(request.getParameter("cateId"));
-		
-		Category cate = cateDao.getCategoryById(cateId);
-		long userId = cate.getUserId();
+		long userId = Long.parseLong(request.getParameter("userId"));
 		
 		cateDao.deleteCategory(cateId);
 		
