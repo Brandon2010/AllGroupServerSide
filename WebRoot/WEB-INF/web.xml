@@ -29,6 +29,13 @@
     <servlet-name>CategoryServlet</servlet-name>
     <servlet-class>com.AllGroup.Servlet.CategoryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of BUG's J2EE component</description>
+    <display-name>This is the display name of BUG's J2EE component</display-name>
+    <servlet-name>EventServlet</servlet-name>
+    <servlet-class>com.AllGroup.Servlet.EventServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -43,6 +50,10 @@
   <servlet-mapping>
     <servlet-name>CategoryServlet</servlet-name>
     <url-pattern>/servlet/CategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EventServlet</servlet-name>
+    <url-pattern>/servlet/EventServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

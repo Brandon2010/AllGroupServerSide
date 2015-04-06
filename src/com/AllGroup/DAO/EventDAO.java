@@ -22,8 +22,8 @@ import com.AllGroup.Bean.User;
  */
 public class EventDAO {
 
-	public int createEvent(String name, String time,
-			String description, String location) {
+	public int createEvent(String name, String time, String description,
+			String location) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
 		int updateRows = 0;
@@ -53,10 +53,10 @@ public class EventDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return updateRows;
 	}
-	
+
 	public List<Event> findEvents(String searchKey, String searchValue) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -65,7 +65,8 @@ public class EventDAO {
 		List<Event> results = new ArrayList<Event>();
 		try {
 			dbCon = DataAccess.getConnection();
-			sql = "SELECT * FROM event e where e."+searchKey+" like '%%" + searchValue + "%'";
+			sql = "SELECT * FROM event e where e." + searchKey + " like '%%"
+					+ searchValue + "%'";
 			ps = dbCon.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -80,7 +81,7 @@ public class EventDAO {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			try {
 				DataAccess.close(rs, ps, dbCon);
 			} catch (SQLException e) {
@@ -89,7 +90,7 @@ public class EventDAO {
 		}
 		return results;
 	}
-	
+
 	public Event getEventById(long eventId) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -113,7 +114,7 @@ public class EventDAO {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			try {
 				DataAccess.close(rs, ps, dbCon);
 			} catch (SQLException e) {
@@ -122,7 +123,35 @@ public class EventDAO {
 		}
 		return event;
 	}
-	
+
+	public long getEventId(String name, long cateId) {
+		Connection dbCon = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			dbCon = DataAccess.getConnection();
+			sql = "SELECT * FROM event_user e where e.cate_id = ? and e.event_name = ?";
+			ps = dbCon.prepareStatement(sql);
+			ps.setLong(1, cateId);
+			ps.setString(2, name);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getLong("event_id");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				DataAccess.close(rs, ps, dbCon);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
 	public List<Event> getEventsByCate(long cateId) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -147,7 +176,7 @@ public class EventDAO {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			try {
 				DataAccess.close(rs, ps, dbCon);
 			} catch (SQLException e) {
@@ -156,7 +185,7 @@ public class EventDAO {
 		}
 		return results;
 	}
-	
+
 	public int deleteEvent(long eventId) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -184,10 +213,10 @@ public class EventDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return updateRows;
 	}
-	
+
 	public List<User> getParticipantsByEvent(long eventId) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -210,7 +239,7 @@ public class EventDAO {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			try {
 				DataAccess.close(rs, ps, dbCon);
 			} catch (SQLException e) {
@@ -219,7 +248,7 @@ public class EventDAO {
 		}
 		return results;
 	}
-	
+
 	public int addParticipant(long cate_id, long event_id) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -248,10 +277,10 @@ public class EventDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return updateRows;
 	}
-	
+
 	public int updateCategory(long new_cate_id, long event_id) {
 		Connection dbCon = null;
 		PreparedStatement ps = null;
@@ -280,7 +309,7 @@ public class EventDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return updateRows;
 	}
 }
