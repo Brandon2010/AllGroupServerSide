@@ -131,10 +131,10 @@ public class EventDAO {
 		String sql = null;
 		try {
 			dbCon = DataAccess.getConnection();
-			sql = "SELECT * FROM event_user e where e.cate_id = ? and e.event_name = ?";
+			sql = "SELECT * FROM event e where e.name = ?";
 			ps = dbCon.prepareStatement(sql);
-			ps.setLong(1, cateId);
-			ps.setString(2, name);
+//			ps.setLong(1, cateId);
+			ps.setString(1, name);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				return rs.getLong("event_id");

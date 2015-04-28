@@ -130,6 +130,8 @@ public class EventServlet extends HttpServlet {
 		} else {
 			long cateId = Long.parseLong(request.getParameter("cateId"));
 			long event_id = ed.getEventId(name, cateId);
+			System.out.println(cateId);
+			System.out.println(event_id);
 			ed.addParticipant(cateId, event_id);
 
 			List<Event> events = ed.getEventsByCate(cateId);
