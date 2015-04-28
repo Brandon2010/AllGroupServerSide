@@ -12,6 +12,8 @@ import com.AllGroup.Util.DataAccess;
 
 public class CategoryDAO {
 	
+	public static final String DEFAULT_CATEGORY = "Uncategorized";
+	
 	public int createCategory(long uId, String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

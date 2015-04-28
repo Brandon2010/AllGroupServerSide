@@ -21,6 +21,9 @@ public class UserServlet extends HttpServlet {
 	private ServletContext sc;
 	private UserDAO userDao;
 	
+	// TODO Just for creating default category for new user
+	private CategoryDAO cateDao;
+	
 	/**
 	 * Constructor of the object.
 	 */
@@ -86,6 +89,10 @@ public class UserServlet extends HttpServlet {
 	public void init() throws ServletException {
 		sc = this.getServletContext();
 		userDao = new UserDAO();
+		
+		// TODO Just for creating default category for new user
+		cateDao = new CategoryDAO();
+		
 		super.init();
 	}
 
@@ -101,8 +108,17 @@ public class UserServlet extends HttpServlet {
 			response.setStatus(200);
 			out.println(jsonUser);
 		} else {
-			response.setStatus(404);
-			out.println("Not Found");
+			//response.setStatus(404);
+			//out.println("Not Found");
+			
+			String name = request.getParameter("name");			
+			userDao.createUser(name, facebookId);
+			User newUser = userDao.searchUser(facebookId);			
+			cateDao.createCategory(newUser.getUserId(), CategoryDAO.DEFAULT_CATEGORY);
+			
+			String jsonUser = JsonTools.createJsonString("user", newUser);
+			response.setStatus(200);
+			out.println(jsonUser);
 		}
 		out.flush();
 		out.close();
@@ -121,6 +137,7 @@ public class UserServlet extends HttpServlet {
 		} else {
 			response.setStatus(404);
 			out.println("Not Found");
+						
 		}
 		out.flush();
 		out.close();

@@ -6,12 +6,11 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/ezmorph-1.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/json-lib-2.2.2-jdk15.jar"/>
-	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Json/json应用jar包/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/wangxi/Documents/CodingTools/Database tools/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/niro/Downloads/json应用jar包/ezmorph-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/niro/Downloads/json应用jar包/json-lib-2.2.2-jdk15.jar"/>
+	<classpathentry kind="lib" path="/Users/niro/Downloads/json应用jar包/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="/Users/niro/Downloads/json应用jar包/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="/Users/niro/Downloads/json应用jar包/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/niro/Downloads/json应用jar包/commons-logging-1.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
