@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.AllGroup.DAO.PostDAO;
+import com.AllGroup.DAO.UserDAO;
 import com.AllGroup.Util.JsonTools;
 
-import com.AllGroup.Bean.PostItem;;
+import com.AllGroup.Bean.PostItem;
+import com.AllGroup.Bean.User;
 
 public class PostServlet extends HttpServlet {
 	
@@ -132,6 +134,8 @@ public class PostServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		String time = request.getParameter("time");
 		int update = pd.addPost(userId, eventId, content, time);
+		UserDAO ud = new UserDAO();
+		User user = ud.searchUser(userId);
 		if (update == 0) {
 			response.setStatus(500);
 		} else {
@@ -139,6 +143,9 @@ public class PostServlet extends HttpServlet {
 			String result = JsonTools.createJsonString("posts", posts);
 			response.setStatus(200);
 			out.println(result);
+//			String userStr = JsonTools.createJsonString("user", user);
+//			System.out.println(userStr);
+//			out.println(userStr);
 		}
 		
 		out.flush();

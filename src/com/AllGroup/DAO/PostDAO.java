@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.AllGroup.Bean.PostItem;
+import com.AllGroup.Bean.User;
 import com.AllGroup.Util.DataAccess;
 
 /**
@@ -38,7 +39,11 @@ public class PostDAO {
 				item.setPostId(rs.getLong("post_id"));
 				item.setContent(rs.getString("content"));
 				item.setTime(rs.getString("time"));
-				item.setUserId(rs.getLong("user_id"));
+				long user_id = rs.getLong("user_id");
+				item.setUserId(user_id);
+				UserDAO ud = new UserDAO();
+				User user = ud.searchUser(user_id);
+				item.setUser(user);
 				results.add(item);
 			}
 			
@@ -79,7 +84,11 @@ public class PostDAO {
 				item.setPostId(rs.getLong("post_id"));
 				item.setContent(rs.getString("content"));
 				item.setTime(rs.getString("time"));
-				item.setUserId(rs.getLong("user_id"));
+				long user_id = rs.getLong("user_id");
+				item.setUserId(user_id);
+				UserDAO ud = new UserDAO();
+				User user = ud.searchUser(user_id);
+				item.setUser(user);
 				return item;
 			}
 			
