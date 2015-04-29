@@ -25,6 +25,7 @@ create table event (
     `description` varchar(1000),
     `time` datetime not null,
 	`location` varchar(1000),
+    `image_url` varchar(200) default '/Users/wangxi/Documents/Courses/CMU/2nd_semester/08781/FinalProject/Images/default.jpg',
     primary key (`event_id`)
 );
 
@@ -66,7 +67,7 @@ create table chat_item (
 );
 
 CREATE VIEW event_user AS select u.user_id, u.name as user_name, u.facebook_id, ca.cate_id, ca.name as category_name, 
-e.event_id, e.name as event_name, e.description, e.time, e.location  FROM
+e.event_id, e.name as event_name, e.description, e.time, e.location, e.image_url  FROM
 event e, category ca, user u, category_event ce WHERE e.event_id = ce.event_id and ca.cate_id = ce.cate_id 
 and u.user_id = ca.user_id;
     

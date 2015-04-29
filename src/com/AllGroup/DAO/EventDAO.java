@@ -76,6 +76,7 @@ public class EventDAO {
 				event.setTime(rs.getString("time"));
 				event.setLocation(rs.getString("location"));
 				event.setDescription(rs.getString("description"));
+				event.setImage_url(rs.getString("image_url"));
 				results.add(event);
 			}
 		} catch (Exception e) {
@@ -110,6 +111,7 @@ public class EventDAO {
 				event.setTime(rs.getString("time"));
 				event.setLocation(rs.getString("location"));
 				event.setDescription(rs.getString("description"));
+				event.setImage_url(rs.getString("image_url"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -171,6 +173,7 @@ public class EventDAO {
 				event.setTime(rs.getString("time"));
 				event.setLocation(rs.getString("location"));
 				event.setDescription(rs.getString("description"));
+				event.setImage_url(rs.getString("image_url"));
 				results.add(event);
 			}
 		} catch (Exception e) {
