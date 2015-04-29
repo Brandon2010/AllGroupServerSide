@@ -261,6 +261,9 @@ public class EventDAO {
 			ps = dbCon.prepareStatement(sql);
 			ps.setLong(1, cate_id);
 			ps.setLong(2, event_id);
+			
+			System.out.println("event_id: " + event_id);
+			
 			updateRows = ps.executeUpdate();
 			dbCon.commit();
 		} catch (Exception e) {

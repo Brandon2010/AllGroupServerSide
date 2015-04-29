@@ -112,4 +112,38 @@ public class UserDAO {
 		return null;	
 	}
 	
+	public User searchUser(long userId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		
+		try {
+			conn = DataAccess.getConnection();
+			sql = "SELECT * FROM user WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, userId);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				User user = new User(rs.getLong("user_id"), 
+						BigInteger.valueOf(rs.getLong("facebook_id")),
+						rs.getString("name"));
+				return user;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DataAccess.close(rs, pstmt, conn);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;	
+	}
+	
 }
