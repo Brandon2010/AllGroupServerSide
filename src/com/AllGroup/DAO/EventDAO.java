@@ -31,12 +31,15 @@ public class EventDAO {
 		try {
 			dbCon = DataAccess.getConnection();
 			dbCon.setAutoCommit(false);
-			sql = "insert into event (name, description, time, location) values (?, ?, ?, ?)";
+			sql = "insert into event (name, description, time, location, image_url) values (?, ?, ?, ?, ?)";
 			ps = dbCon.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.setString(2, description);
 			ps.setString(3, time);
 			ps.setString(4, location);
+			String image_url = "/Users/wangxi/Documents/Courses/CMU/2nd_semester/08781/FinalProject/Images/"
+					+ name + ".jpg";
+			ps.setString(5, image_url);
 			updateRows = ps.executeUpdate();
 			dbCon.commit();
 		} catch (Exception e) {

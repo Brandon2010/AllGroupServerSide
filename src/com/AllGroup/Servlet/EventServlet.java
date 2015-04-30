@@ -2,7 +2,9 @@ package com.AllGroup.Servlet;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -18,6 +20,8 @@ import com.AllGroup.Bean.Event;
 import com.AllGroup.Bean.User;
 import com.AllGroup.DAO.EventDAO;
 import com.AllGroup.Util.JsonTools;
+import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 public class EventServlet extends HttpServlet {
 	private static final String CONTENT_TYPE = "text/html; charset=utf-8";
@@ -92,8 +96,10 @@ public class EventServlet extends HttpServlet {
 			updateCategory(request, response);
 		} else if (eventOperation.equals("image")) {
 			getImageOfEvent(request, response);
+		} else if (eventOperation.equals("uploadimage")) {
+			uploadImage(request, response);
 		}
-	} 
+	}
 
 	/**
 	 * The doPost method of the servlet. <br>
@@ -258,17 +264,16 @@ public class EventServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		long new_cate_id = Long.parseLong(request.getParameter("newId"));
 		long event_id = Long.parseLong(request.getParameter("eventId"));
-		
+
 		int update = ed.updateCategory(new_cate_id, event_id);
 		if (update == 0) {
 			response.setStatus(500);
 		} else {
 			response.setStatus(200);
 		}
-		
-		
+
 	}
-	
+
 	private void getImageOfEvent(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		response.setContentType(PICTURE_CONTENT_TYPE);
@@ -289,6 +294,29 @@ public class EventServlet extends HttpServlet {
 		bout.flush();
 		bout.close();
 		out.close();
+	}
+
+	private void uploadImage(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		System.out.println("upload");
+		String photo = request.getParameter("photo");
+		String name = request.getParameter("name");
+		try {
+			byte[] decode = Base64.decode(photo);
+			String dir = "/Users/wangxi/Documents/Courses/CMU/2nd_semester/08781/FinalProject/Images/";
+			File file = new File(dir + name + ".jpg");
+			System.out.println(file.getName());
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			FileOutputStream out = new FileOutputStream(file);
+			out.write(decode);
+			out.flush();
+			out.close();
+		} catch (Base64DecodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
