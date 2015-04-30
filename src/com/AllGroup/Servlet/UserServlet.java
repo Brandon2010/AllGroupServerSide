@@ -62,6 +62,8 @@ public class UserServlet extends HttpServlet {
 			}
 			else if (userOperation.equals("searchName")) {
 				this.searchUserByName(request, response);
+			} else if (userOperation.equals("searchUID")) {
+				this.searchUserById(request, response);
 			}
 		}		
 	}
@@ -139,6 +141,21 @@ public class UserServlet extends HttpServlet {
 			out.println("Not Found");
 						
 		}
+		out.flush();
+		out.close();
+	}
+	
+	public void searchUserById(HttpServletRequest request, 
+			HttpServletResponse response) throws IOException {		
+		PrintWriter out = response.getWriter();
+		long id = Long.parseLong(request.getParameter("id"));			
+		User user = userDao.searchUser(id);
+		
+		if (user != null) {
+			String jsonUser = JsonTools.createJsonString("user", user);
+			response.setStatus(200);
+			out.println(jsonUser);
+		} 
 		out.flush();
 		out.close();
 	}
